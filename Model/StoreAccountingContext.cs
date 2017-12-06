@@ -1,5 +1,6 @@
 namespace Model
 {
+    using Model.DataModel;
     using System;
     using System.Data.Entity;
     using System.Linq;
@@ -10,5 +11,8 @@ namespace Model
             : base("name=StoreAccountingContext")
         {
         }
+
+        public DbSet<Manager> Managers { get; set; }
+        public DbSet<Sale> Sales { get; set; }
     }
 }
