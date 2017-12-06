@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Model.DataModel
 {
-    class Manager
+    public class Manager
     {
+        public int ManagerID { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
     }
 }
