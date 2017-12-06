@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Classes.ParserObj;
+using Model;
 using Model.DataModel;
 using System;
 using System.Collections.Generic;
@@ -12,22 +13,33 @@ namespace Task4
     {
         static void Main(string[] args)
         {
-            using (StoreAccountingContext context =  new StoreAccountingContext())
-            {
-                ManagerInfo mInfo = new ManagerInfo();
-                mInfo.FirstName = "Dmitry";
-                mInfo.LastName = "Dirsha";
-                Sale nSale = new Sale();
-                nSale.Client = "Artem";
-                nSale.Date = DateTime.Now;
-                nSale.Manager = mInfo;
-                nSale.Price = 10.35;
-                nSale.Product = "Book";
+            //using (StoreAccountingContext context =  new StoreAccountingContext())
+            //{
+            //    ManagerInfo mInfo = new ManagerInfo();
+            //    mInfo.FirstName = "Dmitry";
+            //    mInfo.LastName = "Dirsha";
+            //    Sale nSale = new Sale();
+            //    nSale.Client = "Artem";
+            //    nSale.Date = DateTime.Now;
+            //    nSale.Manager = mInfo;
+            //    nSale.Price = 10.35;
+            //    nSale.Product = "Book";
 
-                context.Managers.Add(mInfo);
-                context.Sales.Add(nSale);
-                context.SaveChanges();
-            }
+            //    context.Managers.Add(mInfo);
+            //    context.Sales.Add(nSale);
+            //    context.SaveChanges();
+            //}
+
+            Parser parser = new Parser();
+            IList<string> test = parser.ParserCSV("D:\\test.csv");
+
+            //foreach(var item in test)
+            //{
+            //    Console.WriteLine(item.ToString());
+            //}
+
+
+
         }
     }
 }
