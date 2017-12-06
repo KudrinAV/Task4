@@ -13,31 +13,31 @@ namespace Task4
     {
         static void Main(string[] args)
         {
-            //using (StoreAccountingContext context =  new StoreAccountingContext())
+            //using (StoreAccountingContext context = new StoreAccountingContext())
             //{
             //    ManagerInfo mInfo = new ManagerInfo();
-            //    mInfo.FirstName = "Dmitry";
+            //    mInfo.FirstName = "Vladislav";
             //    mInfo.LastName = "Dirsha";
-            //    Sale nSale = new Sale();
-            //    nSale.Client = "Artem";
-            //    nSale.Date = DateTime.Now;
-            //    nSale.Manager = mInfo;
-            //    nSale.Price = 10.35;
-            //    nSale.Product = "Book";
+
+            //    Parser parser = new Parser();
+            //    IList<string> test = parser.ParserCSV("D:\\test.csv");
+            //    foreach (var item in test)
+            //    {
+            //        Sale nSale = new Sale();
+            //        string[] tmp = item.Split(';');
+            //        nSale.Client = tmp[1];
+            //        nSale.Date = DateTime.Parse(tmp[0]);
+            //        nSale.Manager = mInfo;
+            //        nSale.Price = Double.Parse(tmp[3]);
+            //        nSale.Product = tmp[2];
+            //        context.Sales.Add(nSale);
+            //    }
 
             //    context.Managers.Add(mInfo);
-            //    context.Sales.Add(nSale);
             //    context.SaveChanges();
             //}
-
             Parser parser = new Parser();
             IList<string> test = parser.ParserCSV("D:\\test.csv");
-
-            //foreach(var item in test)
-            //{
-            //    Console.WriteLine(item.ToString());
-            //}
-
 
 
         }

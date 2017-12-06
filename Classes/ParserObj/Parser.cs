@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace Classes.ParserObj
     {
         public IList<string> ParserCSV(string path)
         {
+            string SName = Path.GetFileNameWithoutExtension(path);
+            Console.WriteLine(SName);
             IList<string> resultList = new List<string>();
             string line;
             using (System.IO.StreamReader sr = new System.IO.StreamReader(path))
@@ -17,15 +20,9 @@ namespace Classes.ParserObj
                 while ((line = sr.ReadLine()) != null)
                 {
                     Console.WriteLine(line);
-                    string str = null;
-                    foreach (var item in line.Split(';'))
-                    {
-                        str += item + " " ;
-                    }
-                    resultList.Add(str);
+                    resultList.Add(line);
                 }
             }
-
             return resultList;
         }
     }
