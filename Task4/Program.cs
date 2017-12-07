@@ -1,5 +1,4 @@
-﻿using Classes.ParserObj;
-using Model;
+﻿using Model;
 using Model.DataModel;
 using System;
 using System.Collections.Generic;
