@@ -1,4 +1,6 @@
 ﻿using BLL.Bridges;
+using BLL.DTO;
+using BLL.Infrastructure;
 using BLL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -32,6 +34,7 @@ namespace MonitorService.Parser
                 Thread.Sleep(1000);
             }
         }
+
         public void Stop()
         {
             watcher.EnableRaisingEvents = false;
@@ -44,14 +47,18 @@ namespace MonitorService.Parser
             string filePath = e.FullPath;
             if (Path.GetExtension(filePath) == ".csv")
             {
-                foreach(var item in parser.ParserCSV(filePath))
+                string SName = Path.GetFileNameWithoutExtension(filePath);
+                foreach (var item in parser.ParserCSV(filePath))
                 {
-                    //bridge
+                    bridge.AddSale(parseLine(item, SName));
                 }
-                
             }
-           
-            
+        }
+
+        private SaleDTO parseLine(string line, string name)
+        {
+            var temp = line.Split(';');
+            return new SaleDTO(name, DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]));
         }
     }
 }

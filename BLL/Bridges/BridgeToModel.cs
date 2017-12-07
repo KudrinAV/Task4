@@ -20,9 +20,9 @@ namespace BLL.Bridges
         //    _db = unitOfWork;
         //}
 
-        public BridgeToModel(string path)
+        public BridgeToModel()
         {
-            _db = new EFUnitOfWork(path);
+            _db = new EFUnitOfWork();
         }
 
         public void AddSale(SaleDTO sale)

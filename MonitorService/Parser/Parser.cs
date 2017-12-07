@@ -11,15 +11,12 @@ namespace MonitorService.Parser
     {
         public IList<string> ParserCSV(string path)
         {
-            string SName = Path.GetFileNameWithoutExtension(path);
-            Console.WriteLine(SName);
             IList<string> resultList = new List<string>();
             string line;
             using (System.IO.StreamReader sr = new System.IO.StreamReader(path))
             {
                 while ((line = sr.ReadLine()) != null)
                 {
-                    Console.WriteLine(line);
                     resultList.Add(line);
                 }
             }
