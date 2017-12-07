@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BLL.Bridges;
+using BLL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,11 +12,14 @@ namespace MonitorService.Parser
 {
     class Watcher
     {
+        IBridgeToModel bridge;
         FileSystemWatcher watcher;
         object obj = new object();
         bool enabled = true;
+
         public Watcher()
         {
+            bridge = new BridgeToModel();
             watcher = new FileSystemWatcher("D:\\Task4");
             watcher.Created += Watcher_Created;
         }
@@ -32,36 +37,21 @@ namespace MonitorService.Parser
             watcher.EnableRaisingEvents = false;
             enabled = false;
         }
-        // создание файлов
+
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
             Parser parser = new Parser();
-            string fileEvent = "создан";
             string filePath = e.FullPath;
             if (Path.GetExtension(filePath) == ".csv")
             {
                 foreach(var item in parser.ParserCSV(filePath))
                 {
-                    RecordEntry(fileEvent, item);
+                    //bridge
                 }
                 
             }
            
             
-            RecordEntry(fileEvent, filePath);
-        }
-
-        private void RecordEntry(string fileEvent, string filePath)
-        {
-            lock (obj)
-            {
-                using (StreamWriter writer = new StreamWriter("D:\\templog.txt", true))
-                {
-                    writer.WriteLine(String.Format("{0} файл {1} был {2}",
-                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
-                    writer.Flush();
-                }
-            }
         }
     }
 }

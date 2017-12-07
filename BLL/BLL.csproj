@@ -45,9 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bridges\BridgeToModel.cs" />
+    <Compile Include="Bridges\BridgeToMonitorService.cs" />
     <Compile Include="DTO\ManagerDTO.cs" />
     <Compile Include="DTO\SaleDTO.cs" />
-    <Compile Include="Events\Parsing.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interfaces\IBridgeToModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

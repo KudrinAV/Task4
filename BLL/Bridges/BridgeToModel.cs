@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BLL.DTO;
 using Model.Interfaces;
 using Model.DataModel;
+using Model.DALElements;
 
 namespace BLL.Bridges
 {
@@ -14,9 +15,14 @@ namespace BLL.Bridges
     {
         private IUnitOfWork _db;
 
-        public BridgeToModel(IUnitOfWork unitOfWork)
+        //public BridgeToModel(IUnitOfWork unitOfWork)
+        //{
+        //    _db = unitOfWork;
+        //}
+
+        public BridgeToModel(string path)
         {
-            _db = unitOfWork;
+            _db = new EFUnitOfWork(path);
         }
 
         public void AddSale(SaleDTO sale)
