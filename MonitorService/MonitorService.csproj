@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F1CDDC67-313A-4F9C-AF56-B27FF2E5E68C}</ProjectGuid>
+    <ProjectGuid>{72FDD06F-0BB8-40D8-AE11-47113B0B48BF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>MonitorService</RootNamespace>
     <AssemblyName>MonitorService</AssemblyName>
@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parser\Parser.cs" />
+    <Compile Include="Parser\Watcher.cs" />
     <Compile Include="Service1.cs">
       <SubType>Component</SubType>
     </Compile>
