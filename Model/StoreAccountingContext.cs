@@ -7,8 +7,13 @@ namespace Model
 
     public class StoreAccountingContext : DbContext
     {
-        public StoreAccountingContext()
-            : base("name=StoreAccountingContext")
+        //public StoreAccountingContext()
+        //    : base("name=StoreAccountingContext")
+        //{
+        //}
+
+        public StoreAccountingContext(string connectionString)
+            : base(connectionString)
         {
         }
 

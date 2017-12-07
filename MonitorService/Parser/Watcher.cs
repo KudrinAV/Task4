@@ -16,10 +16,7 @@ namespace MonitorService.Parser
         public Watcher()
         {
             watcher = new FileSystemWatcher("D:\\Task4");
-            watcher.Deleted += Watcher_Deleted;
             watcher.Created += Watcher_Created;
-            watcher.Changed += Watcher_Changed;
-            watcher.Renamed += Watcher_Renamed;
         }
 
         public void Start()
@@ -35,38 +32,22 @@ namespace MonitorService.Parser
             watcher.EnableRaisingEvents = false;
             enabled = false;
         }
-        // переименование файлов
-        private void Watcher_Renamed(object sender, RenamedEventArgs e)
-        {
-            string fileEvent = "переименован в " + e.FullPath;
-            string filePath = e.OldFullPath;
-            RecordEntry(fileEvent, filePath);
-        }
-        // изменение файлов
-        private void Watcher_Changed(object sender, FileSystemEventArgs e)
-        {
-            string fileEvent = "изменен";
-            string filePath = e.FullPath;
-            RecordEntry(fileEvent, filePath);
-        }
         // создание файлов
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
             Parser parser = new Parser();
             string fileEvent = "создан";
             string filePath = e.FullPath;
-            foreach(var item in parser.ParserCSV(filePath))
+            if (Path.GetExtension(filePath) == ".csv")
             {
-                Console.WriteLine(item);
+                foreach(var item in parser.ParserCSV(filePath))
+                {
+                    RecordEntry(fileEvent, item);
+                }
+                
             }
+           
             
-            RecordEntry(fileEvent, filePath);
-        }
-        // удаление файлов
-        private void Watcher_Deleted(object sender, FileSystemEventArgs e)
-        {
-            string fileEvent = "удален";
-            string filePath = e.FullPath;
             RecordEntry(fileEvent, filePath);
         }
 

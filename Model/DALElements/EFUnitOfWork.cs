@@ -15,6 +15,10 @@ namespace Model.DALElements
         private IGenericRepository<Manager> _managers;
         private IGenericRepository<Sale> _sales;
 
+        public EFUnitOfWork(string connectionString)
+        {
+            _context = new StoreAccountingContext(connectionString);
+        }
 
         public IGenericRepository<Manager> Managers
         {

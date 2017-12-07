@@ -33,7 +33,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MonitorInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MonitorInstaller.Designer.cs">
+      <DependentUpon>MonitorInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Parser\Watcher.cs" />
     <Compile Include="Service1.cs">

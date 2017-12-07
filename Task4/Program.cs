@@ -36,8 +36,7 @@ namespace Task4
             //    context.Managers.Add(mInfo);
             //    context.SaveChanges();
             //}
-            Parser parser = new Parser();
-            IList<string> test = parser.ParserCSV("D:\\test.csv");
+            Console.WriteLine(System.IO.Path.GetExtension("D:\\Task4\\testHello.csv"));
 
 
         }
