@@ -9,8 +9,8 @@ namespace Model.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<Manager> Managers { get; }
-        IRepository<Sale> Sales { get; }
+        IGenericRepository<Manager> Managers { get; }
+        IGenericRepository<Sale> Sales { get; }
         void Save();
     }
 }
