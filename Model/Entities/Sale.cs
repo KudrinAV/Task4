@@ -14,6 +14,6 @@ namespace Model.DataModel
         public string Product { get; set; }
         public double Price { get; set; }
 
-        public ManagerInfo Manager { get; set; }
+        public Manager Manager { get; set; }
     }
 }

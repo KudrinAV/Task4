@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model.DataModel
 {
-    public class ManagerInfo
+    public class Manager
     {
         [Key]
         public int ManagerID { get; set; }

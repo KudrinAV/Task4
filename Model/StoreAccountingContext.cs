@@ -12,7 +12,7 @@ namespace Model
         {
         }
 
-        public DbSet<ManagerInfo> Managers { get; set; }
+        public DbSet<Manager> Managers { get; set; }
         public DbSet<Sale> Sales { get; set; }
     }
 }
