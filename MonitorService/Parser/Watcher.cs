@@ -1,6 +1,5 @@
 ﻿using BLL.Bridges;
 using BLL.DTO;
-using BLL.Infrastructure;
 using BLL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -21,7 +20,6 @@ namespace MonitorService.Parser
 
         public Watcher()
         {
-            bridge = new BridgeToModel();
             watcher = new FileSystemWatcher("D:\\Task4");
             watcher.Created += Watcher_Created;
         }
@@ -43,6 +41,7 @@ namespace MonitorService.Parser
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
+            bridge = new BridgeToModel();
             Parser parser = new Parser();
             string filePath = e.FullPath;
             if (Path.GetExtension(filePath) == ".csv")
@@ -53,6 +52,7 @@ namespace MonitorService.Parser
                     bridge.AddSale(parseLine(item, SName));
                 }
             }
+            bridge.Dispose();
         }
 
         private SaleDTO parseLine(string line, string name)

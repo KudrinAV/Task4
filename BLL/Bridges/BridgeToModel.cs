@@ -23,11 +23,11 @@ namespace BLL.Bridges
         public BridgeToModel()
         {
             _db = new EFUnitOfWork();
+            AutoMapper.Mapper.Initialize(c => c.CreateMap<SaleDTO, Sale>());
         }
 
         public void AddSale(SaleDTO sale)
         {
-            AutoMapper.Mapper.Initialize(c => c.CreateMap< SaleDTO, Sale > ());
             _db.Sales.Create(AutoMapper.Mapper.Map<SaleDTO, Sale>(sale));
             _db.Save();
         }
