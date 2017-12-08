@@ -18,12 +18,12 @@ namespace PresentationLayer.Bridge
         public BridgeToBLL()
         {
             _dbConnect = new BridgeToModel();
-            AutoMapper.Mapper.Initialize(c => c.CreateMap<SaleViewModel, SaleDTO>());
+            //AutoMapper.Mapper.Initialize(c => c.CreateMap<SaleViewModel, SaleDTO>());
         }
 
-        public void AddSale(SaleViewModel sale)
+        public void SendSaleInfo(SaleViewModel sale)
         {
-            throw new NotImplementedException();
+            _dbConnect.AddSale(AutoMapper.Mapper.Map<SaleViewModel, SaleDTO>(sale));
         }
 
         public void AddSales(ICollection<SaleViewModel> sales)
@@ -38,7 +38,7 @@ namespace PresentationLayer.Bridge
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _dbConnect.Dispose();
         }
     }
 }

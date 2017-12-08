@@ -14,6 +14,8 @@ namespace MonitorService.Parser
     class Watcher
     {
         IBridgeToBLL bridge;
+        private CancellationTokenSource tokenSource;
+        private ICollection<Task> tasks;
         FileSystemWatcher watcher;
         object obj = new object();
         bool enabled = true;
@@ -22,10 +24,12 @@ namespace MonitorService.Parser
         {
             watcher = new FileSystemWatcher("D:\\Task4");
             watcher.Created += Watcher_Created;
+            tasks = new List<Task>();
         }
 
         public void Start()
         {
+                
             watcher.EnableRaisingEvents = true;
             while (enabled)
             {
@@ -41,6 +45,15 @@ namespace MonitorService.Parser
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
+            //tokenSource = new CancellationTokenSource();
+            //var cancellation = tokenSource.Token;
+            var task = Task.Run(() => SendInfoToBLL(e));
+            //tasks.Add(task);
+            
+        }
+        
+        private void SendInfoToBLL(FileSystemEventArgs e)
+        {
             bridge = new BridgeToBLL();
             Parser parser = new Parser();
             string filePath = e.FullPath;
@@ -49,7 +62,7 @@ namespace MonitorService.Parser
                 string SName = Path.GetFileNameWithoutExtension(filePath);
                 foreach (var item in parser.ParserCSV(filePath))
                 {
-                    bridge.AddSale(parseLine(item, SName));
+                    bridge.SendSaleInfo(parseLine(item, SName));
                 }
             }
             bridge.Dispose();
