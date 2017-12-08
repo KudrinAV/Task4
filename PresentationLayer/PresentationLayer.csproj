@@ -44,14 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bridge\BridgeToBLL.cs" />
     <Compile Include="Interfaces\IBridgeToBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
     <Compile Include="ViewModels\SaleViewModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Bridge\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{004d5256-fccb-40d8-8b43-fca9af8e5ec5}</Project>

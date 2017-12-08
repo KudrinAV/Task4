@@ -1,6 +1,6 @@
-﻿using BLL.Bridges;
-using BLL.DTO;
-using BLL.Interfaces;
+﻿using PresentationLayer.Bridge;
+using PresentationLayer.Interfaces;
+using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ namespace MonitorService.Parser
 {
     class Watcher
     {
-        IBridgeToModel bridge;
+        IBridgeToBLL bridge;
         FileSystemWatcher watcher;
         object obj = new object();
         bool enabled = true;
@@ -41,7 +41,7 @@ namespace MonitorService.Parser
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            bridge = new BridgeToModel();
+            bridge = new BridgeToBLL();
             Parser parser = new Parser();
             string filePath = e.FullPath;
             if (Path.GetExtension(filePath) == ".csv")
@@ -55,10 +55,10 @@ namespace MonitorService.Parser
             bridge.Dispose();
         }
 
-        private SaleDTO parseLine(string line, string name)
+        private SaleViewModel parseLine(string line, string name)
         {
             var temp = line.Split(';');
-            return new SaleDTO(name, DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]));
+            return new SaleViewModel(name, DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]));
         }
     }
 }
