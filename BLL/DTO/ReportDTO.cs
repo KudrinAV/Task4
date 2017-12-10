@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BLL.DTO
 {
-    public class ManagerDTO
+    public class ReportDTO
     {
-        public string LastName { get; set; }
+        string Name { get; set; }
     }
 }

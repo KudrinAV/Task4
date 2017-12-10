@@ -22,7 +22,7 @@ namespace Model.DALElements
             _context = new StoreAccountingContext();
         }
 
-        public IGenericRepository<Report> Report
+        public IGenericRepository<Report> Reports
         {
             get
             {

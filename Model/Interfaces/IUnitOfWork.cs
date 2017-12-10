@@ -1,4 +1,5 @@
 ﻿using Model.DataModel;
+using Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Model.Interfaces
     {
         IGenericRepository<Manager> Managers { get; }
         IGenericRepository<Sale> Sales { get; }
+        IGenericRepository<Report> Reports { get; }
         void Save();
     }
 }

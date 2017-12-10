@@ -9,6 +9,7 @@ using Model.Interfaces;
 using Model.DataModel;
 using Model.DALElements;
 using AutoMapper;
+using Model.Entities;
 
 namespace BLL.Bridges
 {
@@ -20,6 +21,25 @@ namespace BLL.Bridges
         {
             _db = new EFUnitOfWork();
 
+        }
+
+        public void AddReport(ReportDTO report)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ReportDTO, Report>();
+            });
+            IMapper mapper = config.CreateMapper();
+            _db.Reports.Create(mapper.Map<ReportDTO, Report>(report));
+            _db.Save();
+        }
+
+        public void AddReports(ICollection<ReportDTO> reports)
+        {
+            foreach(var item in reports)
+            {
+                AddReport(item);
+            }
         }
 
         public void AddSale(SaleDTO sale)
