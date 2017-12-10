@@ -11,10 +11,13 @@ namespace PresentationLayer.ViewModels
         public string Name { get; private set; }
         public DateTime Date { get; private set; }
 
-        public ReportViewModel(string name, DateTime date)
+        public int ManagerId { get; set; }
+
+        public ReportViewModel(string name, DateTime date, int id)
         {
             Name = name;
             Date = date;
+            ManagerId = id;
         }
     }
 }

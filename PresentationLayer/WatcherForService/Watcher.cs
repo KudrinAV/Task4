@@ -52,17 +52,15 @@ namespace MonitorService.Parser
         private void CheckFile(FileSystemEventArgs e)
         {
             IBridgeToBLL bridge = new BridgeToBLL();
-            string[] tmp = Path.GetFileNameWithoutExtension(e.FullPath).Split('_');
+            string fileName = Path.GetFileNameWithoutExtension(e.FullPath);
+            string[] tmp = fileName.Split('_');
             string pattern = "ddMMyyyy";
             DateTime parsedDate;
             if(DateTime.TryParseExact(tmp[1], pattern, null, DateTimeStyles.None, out parsedDate))
-            Console.WriteLine(parsedDate.ToString());
-            Console.WriteLine("Checking File " + tmp[0] + "_" + tmp[1]);
-                //+ DateTime.ParseExact(tmp[1], "ddmmYYYY", CultureInfo.InvariantCulture));
-            if (bridge.CheckManager(tmp[0])==true)
+            if (bridge.CheckManager(tmp[0]))
             {
                 Console.WriteLine("He exists");
-                bridge.SendReport(new ReportViewModel(tmp[0], parsedDate));
+                bridge.SendReport(new ReportViewModel(fileName, parsedDate, bridge.GetIdOf));
                 SendInfoToBLL(e, bridge);
             }
             else {
