@@ -44,16 +44,25 @@ namespace MonitorService.Parser
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            //string fileEvent = "создан";
-            //string filePath = e.FullPath;
-            //RecordEntry(fileEvent, filePath, e);
             Console.WriteLine("What do we have there? New TASK!");
-            taskFactory.StartNew(()=>SendInfoToBLL(e));
+            taskFactory.StartNew(()=>CheckFile(e));
         }
-        
-        private void SendInfoToBLL(FileSystemEventArgs e)
+
+        private void CheckFile(FileSystemEventArgs e)
         {
             IBridgeToBLL bridge = new BridgeToBLL();
+            string[] tmp = Path.GetFileNameWithoutExtension(e.FullPath).Split('_');
+            Console.WriteLine("Checking File" + tmp[0] + "_" + tmp[1]);
+            if (bridge.CheckManager(tmp[0]))
+            {
+                bridge.SendReport(new ReportViewModel(tmp[0], DateTime.Parse(tmp[1])));
+                SendInfoToBLL(e, bridge);
+            }
+            else { bridge.SendManagerInfo(new ManagerViewModel(tmp[0])); }
+        }
+        
+        private void SendInfoToBLL(FileSystemEventArgs e, IBridgeToBLL bridge)
+        {
             string filePath = e.FullPath;
             Parser parser = new Parser();
             //string SName = Path.GetFileNameWithoutExtension(filePath);

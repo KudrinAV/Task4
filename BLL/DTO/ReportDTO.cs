@@ -9,5 +9,6 @@ namespace BLL.DTO
     public class ReportDTO
     {
         string Name { get; set; }
+        public DateTime Date {get;set;}
     }
 }

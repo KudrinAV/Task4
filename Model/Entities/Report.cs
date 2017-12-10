@@ -13,6 +13,7 @@ namespace Model.Entities
         [Key]
         public int ReportId { get; set; }
         public string ReportName { get; set; }
+        public DateTime Date { get; set; }
 
         public Manager Manager { get; set; }
     }

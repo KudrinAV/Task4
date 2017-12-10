@@ -19,7 +19,6 @@ namespace PresentationLayer.Bridge
         public BridgeToBLL()
         {
             _dbConnect = new BridgeToModel();
-            //AutoMapper.Mapper.Initialize(c => c.CreateMap<SaleViewModel, SaleDTO>());
         }
 
         private SaleDTO MapSale(SaleViewModel sale)
@@ -65,6 +64,16 @@ namespace PresentationLayer.Bridge
             });
             IMapper mapper = config.CreateMapper();
             _dbConnect.AddReport( mapper.Map<ReportViewModel, ReportDTO>(report));
+        }
+
+        public void SendManagerInfo(ManagerViewModel manager)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ManagerViewModel, ManagerDTO>();
+            });
+            IMapper mapper = config.CreateMapper();
+            _dbConnect.AddManager(mapper.Map<ManagerViewModel, ManagerDTO>(manager));
         }
     }
 }

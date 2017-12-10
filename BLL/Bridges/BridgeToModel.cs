@@ -23,6 +23,17 @@ namespace BLL.Bridges
 
         }
 
+        public void AddManager(ManagerDTO manager)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ManagerDTO, Manager>();
+            });
+            IMapper mapper = config.CreateMapper();
+            _db.Managers.Create(mapper.Map<ManagerDTO, Manager>(manager));
+            _db.Save();
+        }
+
         public void AddReport(ReportDTO report)
         {
             var config = new MapperConfiguration(cfg =>
