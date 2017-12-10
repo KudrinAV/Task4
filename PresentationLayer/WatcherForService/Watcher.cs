@@ -31,8 +31,6 @@ namespace MonitorService.Parser
             watcher = new FileSystemWatcher("D:\\Task4" , "*csv");
             watcher.Created += Watcher_Created;
             taskFactory = new TaskFactory();
-            
-
         }
 
         public void Start()

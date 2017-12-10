@@ -10,6 +10,7 @@ namespace MonitorConsoleApp
     {
         static void Main(string[] args)
         {
+            
         }
     }
 }
