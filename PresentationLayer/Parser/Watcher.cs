@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace MonitorService.Parser
 {
-    class Watcher
+    public class Watcher
     {
         FileSystemWatcher watcher;
-        event EventHandler<FileSystemEventArgs> Created;
+        TaskFactory taskFactory;
         
         public void OnCretaed(FileSystemEventArgs e)
         {
@@ -30,6 +30,8 @@ namespace MonitorService.Parser
             parser = new Parser();
             watcher = new FileSystemWatcher("D:\\Task4" , "*csv");
             watcher.Created += Watcher_Created;
+            taskFactory = new TaskFactory();
+            
 
         }
 
@@ -51,7 +53,9 @@ namespace MonitorService.Parser
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            Task.Run(() => SendInfoToBLL(e));
+            string fileEvent = "создан";
+            string filePath = e.FullPath;
+            RecordEntry(fileEvent, filePath , e);
         }
         
         private async void SendInfoToBLL(FileSystemEventArgs e)
@@ -63,8 +67,21 @@ namespace MonitorService.Parser
             {
                 await Task.Run(()=>bridge.SendSaleInfo(item));
             }
-            
             bridge.Dispose();
+        }
+
+        private void RecordEntry(string fileEvent, string filePath, FileSystemEventArgs e)
+        {
+            lock (obj)
+            {
+                taskFactory.StartNew(() => SendInfoToBLL(e));
+                using (StreamWriter writer = new StreamWriter("D:\\templog.txt", true))
+                {
+                    writer.WriteLine(String.Format("{0} файл {1} был {2}",
+                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
+                    writer.Flush();
+                }
+            }
         }
     }
 }

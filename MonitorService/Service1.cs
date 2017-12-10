@@ -16,8 +16,6 @@ namespace MonitorService
     {
 
         private Watcher watcher;
-        private Task backgroundTask;
-        private CancellationTokenSource tokenSource;
 
 
         public Service1()
@@ -30,7 +28,7 @@ namespace MonitorService
 
         protected override void OnStart(string[] args)
         {
-            watcher = new Parser.Watcher();
+            watcher = new Watcher();
             Thread watcherTread = new Thread(new ThreadStart(watcher.Start));
             watcherTread.Start();
         }
