@@ -58,8 +58,6 @@
     <Compile Include="MonitorInstaller.Designer.cs">
       <DependentUpon>MonitorInstaller.cs</DependentUpon>
     </Compile>
-    <Compile Include="Parser\Parser.cs" />
-    <Compile Include="Parser\Watcher.cs" />
     <Compile Include="Service1.cs">
       <SubType>Component</SubType>
     </Compile>

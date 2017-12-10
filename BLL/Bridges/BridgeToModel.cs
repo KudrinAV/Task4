@@ -8,12 +8,18 @@ using BLL.DTO;
 using Model.Interfaces;
 using Model.DataModel;
 using Model.DALElements;
+using AutoMapper;
 
 namespace BLL.Bridges
 {
     public class BridgeToModel : IBridgeToModel
     {
         private IUnitOfWork _db;
+
+        //MapperConfiguration config = new MapperConfiguration(cfg =>
+        //{
+        //    cfg.CreateMap<SaleDTO, Sale>();
+        //});
 
         //public BridgeToModel(IUnitOfWork unitOfWork)
         //{
@@ -23,12 +29,17 @@ namespace BLL.Bridges
         public BridgeToModel()
         {
             _db = new EFUnitOfWork();
-            AutoMapper.Mapper.Initialize(c => c.CreateMap<SaleDTO, Sale>());
+
         }
 
         public void AddSale(SaleDTO sale)
         {
-            _db.Sales.Create(AutoMapper.Mapper.Map<SaleDTO, Sale>(sale));
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<SaleDTO, Sale>();
+            });
+            IMapper mapper = config.CreateMapper();
+            _db.Sales.Create(mapper.Map<SaleDTO, Sale>(sale));
             _db.Save();
         }
 
@@ -44,6 +55,7 @@ namespace BLL.Bridges
 
         public void Dispose()
         {
+            //AutoMapper.Mapper.Map<SaleDTO, Sale>.Dispose();
             _db.Dispose();
         }
     }

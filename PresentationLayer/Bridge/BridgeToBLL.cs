@@ -8,6 +8,7 @@ using PresentationLayer.ViewModels;
 using BLL.Interfaces;
 using BLL.Bridges;
 using BLL.DTO;
+using AutoMapper;
 
 namespace PresentationLayer.Bridge
 {
@@ -23,7 +24,12 @@ namespace PresentationLayer.Bridge
 
         public void SendSaleInfo(SaleViewModel sale)
         {
-            _dbConnect.AddSale(AutoMapper.Mapper.Map<SaleViewModel, SaleDTO>(sale));
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<SaleViewModel, SaleDTO>();
+            });
+            IMapper mapper = config.CreateMapper();
+            _dbConnect.AddSale(mapper.Map<SaleViewModel, SaleDTO>(sale));
         }
 
         public void AddSales(ICollection<SaleViewModel> sales)

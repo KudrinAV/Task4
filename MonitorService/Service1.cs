@@ -30,21 +30,7 @@ namespace MonitorService
 
         protected override void OnStart(string[] args)
         {
-            //tokenSource = new CancellationTokenSource();
-            //watcher = new Watcher();
-            //var cancellation = tokenSource.Token;
-            //backgroundTask = Task.Factory.StartNew(() => WorkerThreadFunc(cancellation),
-            //                                                               cancellation,
-            //                                            TaskCreationOptions.LongRunning,
-            //                                                       TaskScheduler.Default);
-
-            watcher = new Watcher();
-            Thread watcherTread = new Thread(new ThreadStart(watcher.Start));
-            watcherTread.Start();
-        }
-
-        private void WorkerThreadFunc(CancellationToken token)
-        {
+            watcher = new Parser.Watcher();
             Thread watcherTread = new Thread(new ThreadStart(watcher.Start));
             watcherTread.Start();
         }
@@ -53,21 +39,6 @@ namespace MonitorService
         {
             watcher.Stop();
             Thread.Sleep(1000);
-            //bool finishedSuccessfully = false;
-            //try
-            //{
-            //    tokenSource.Cancel();
-            //    var timeout = TimeSpan.FromSeconds(3);
-            //    finishedSuccessfully = backgroundTask.Wait(timeout);
-            //}
-            //finally
-            //{
-            //    if (finishedSuccessfully == false)
-            //    {
-            //        // Task didn't complete during reasonable amount of time
-            //        // Fix your cancellation handling in WorkerThreadFunc or ProcessPicture
-            //    }
-            //}
         }
     }
 }

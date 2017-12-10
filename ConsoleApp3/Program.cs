@@ -7,10 +7,12 @@ using System.IO;
 using PresentationLayer.ViewModels;
 using PresentationLayer.Bridge;
 using PresentationLayer.Interfaces;
+using System.Threading;
+using AutoMapper;
 
 namespace ConsoleApp3
 {
-   
+
     class Program
     {
 
@@ -28,59 +30,42 @@ namespace ConsoleApp3
             return resultList;
         }
 
-        private static SaleViewModel parseLine(string line, string name)
+        public static SaleViewModel parseLine(string line, string name)
         {
             var temp = line.Split(';');
             return new SaleViewModel(name, DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]));
         }
 
-        //private static void SendTask(IBridgeToBLL bl, SaleViewModel model)
-        //{
-        //    bl.SendSaleInfo(model);
-        //}
+        public static async void addTODB(IList<string> list, string path)
+        {
+            IBridgeToBLL con = new BridgeToBLL();
+            string name = Path.GetFileNameWithoutExtension(path);
+            foreach (var item in list)
+            {
+                await Task.Run(()=> con.SendSaleInfo(parseLine(item, name)));
+                Console.WriteLine("hello" + DateTime.Now.ToString() +  " " + Task.CurrentId.ToString());
+            }
+            con.Dispose();
+            //test.Dispose();
 
+        }
+
+        
+        private static void method(string path)
+        {
+            Task.Factory.StartNew(() => Task.Factory.StartNew(() => addTODB(ParserCSV(path), path)));
+        }
 
         static void Main(string[] args)
         {
-            IBridgeToBLL test = new BridgeToBLL();
-
-           
-
-            //Task task = new Task(action);
-
-            string SName = Path.GetFileNameWithoutExtension("D:\\Task4\\testHello.csv");
-            foreach (var item in ParserCSV("D:\\Task4\\testHello.csv"))
-            {
-                test.SendSaleInfo(parseLine(item, SName));
-            }
-            //foreach (var item in ParserCSV("D:\\Task4\\test.csv"))
-            //{
-            //    test.SendSaleInfo(parseLine(item, SName));
-            //}
-            //string str1 = null;
-            //string str2 = null;
-            //string str3 = null;
-            //Task[] tasks = new Task[3];
-
-            ////tasks[0] = Task.Factory.StartNew(() => ShowMessage("Task1 is executed" +  tasks[0].Id));
-
-            ////tasks[1] = Task.Factory.StartNew(() => ShowMessage ("Task2 is executed" + tasks[1].Id));
-
-            ////tasks[2] = Task.Factory.StartNew(() => ShowMessage("Task3 is executed" + tasks[2].Id));
-
-            //tasks[0] = Task.Run(() => ShowMessage("Task1 is executed" + tasks[0].Id));
-
-            //tasks[1] = Task.Run(() => ShowMessage("Task2 is executed" + tasks[1].Id));
-
-            //tasks[2] = Task.Run(() => ShowMessage("Task3 is executed" + tasks[2].Id));
+            string path1 = "D:\\Task4\\test.csv";
+            string path2 = "D:\\Task4\\testHello.csv";
+            method(path1);
+            method(path2);
 
 
-            ////Task.Factory.ContinueWhenAll(tasks, completedTasks =>
-            ////{
-            ////    Console.WriteLine("Executed");
-            ////});
 
-            //Console.ReadLine();
+            Console.ReadLine();
 
 
 
