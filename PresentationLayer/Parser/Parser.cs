@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MonitorService.Parser
 {
-    public class Parser
+    public class Parser 
     {
         private SaleViewModel parseLine(string line)
         {
@@ -21,13 +21,23 @@ namespace MonitorService.Parser
         {
             IList<SaleViewModel> resultList = new List<SaleViewModel>();
             string line;
-            using (System.IO.StreamReader sr = new System.IO.StreamReader(path))
+            Console.WriteLine(Path.GetFileNameWithoutExtension(path))   ;
+            using (StreamReader sr = new StreamReader(path))
             {
-                while ((line = sr.ReadLine()) != null)
+                
+                try
                 {
-                    resultList.Add(parseLine(line));
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        resultList.Add(parseLine(line));
+                    }
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
                 }
             }
+            Console.WriteLine("sending result");
             return resultList;
         }
     }

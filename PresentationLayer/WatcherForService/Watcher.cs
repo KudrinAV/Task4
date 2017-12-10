@@ -15,19 +15,12 @@ namespace MonitorService.Parser
     {
         FileSystemWatcher watcher;
         TaskFactory taskFactory;
-        
-        public void OnCretaed(FileSystemEventArgs e)
-        {
-
-        }
 
         object obj = new object();
         bool enabled = true;
-        Parser parser;
 
         public Watcher()
         {
-            parser = new Parser();
             watcher = new FileSystemWatcher("D:\\Task4" , "*csv");
             watcher.Created += Watcher_Created;
             taskFactory = new TaskFactory();
@@ -51,35 +44,39 @@ namespace MonitorService.Parser
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            string fileEvent = "создан";
-            string filePath = e.FullPath;
-            RecordEntry(fileEvent, filePath , e);
+            //string fileEvent = "создан";
+            //string filePath = e.FullPath;
+            //RecordEntry(fileEvent, filePath, e);
+            Console.WriteLine("What do we have there? New TASK!");
+            taskFactory.StartNew(()=>SendInfoToBLL(e));
         }
         
-        private async void SendInfoToBLL(FileSystemEventArgs e)
+        private void SendInfoToBLL(FileSystemEventArgs e)
         {
             IBridgeToBLL bridge = new BridgeToBLL();
             string filePath = e.FullPath;
-            string SName = Path.GetFileNameWithoutExtension(filePath);
+            Parser parser = new Parser();
+            //string SName = Path.GetFileNameWithoutExtension(filePath);
             foreach (var item in parser.ParserCSV(filePath))
             {
-                await Task.Run(()=>bridge.SendSaleInfo(item));
+                bridge.SendSaleInfo(item);
             }
+            Console.WriteLine("Added to db");
             bridge.Dispose();
         }
 
         private void RecordEntry(string fileEvent, string filePath, FileSystemEventArgs e)
         {
-            lock (obj)
-            {
-                taskFactory.StartNew(() => SendInfoToBLL(e));
-                using (StreamWriter writer = new StreamWriter("D:\\templog.txt", true))
-                {
-                    writer.WriteLine(String.Format("{0} файл {1} был {2}",
-                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
-                    writer.Flush();
-                }
-            }
+            //lock (obj)
+            //{
+            //    //taskFactory.StartNew(() => SendInfoToBLL(e));
+            //    using (StreamWriter writer = new StreamWriter("D:\\templog.txt", true))
+            //    {
+            //        writer.WriteLine(String.Format("{0} файл {1} был {2}",
+            //            DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
+            //        writer.Flush();
+            //    }
+            //}
         }
     }
 }
