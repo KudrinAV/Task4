@@ -66,7 +66,7 @@ namespace BLL.Bridges
 
         public bool CheckManager(string managerLastName)
         {
-            if (_db.Managers.Get(x => x.LastName == managerLastName) != null) { return true; }
+            if (_db.Managers.Get(x => x.LastName == managerLastName).Any()) { return true; }
             else return false;
         }
 

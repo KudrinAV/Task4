@@ -14,7 +14,7 @@ namespace MonitorConsoleApp
         static void Main(string[] args)
         {
             //IBridgeToBLL bridge = new BridgeToBLL();
-            //bridge.SendSaleInfo(new PresentationLayer.ViewModels.SaleViewModel("test", DateTime.Now, "test", "test", 13.5));
+            //bridge.SendSaleInfo(new PresentationLayer.ViewModels.SaleViewModel( DateTime.Now, "test", "test", 13.5));
             //bridge.Dispose();
             Watcher watcher = new Watcher();
             watcher.Start();

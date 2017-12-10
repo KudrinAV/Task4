@@ -13,7 +13,7 @@ namespace MonitorService.Parser
         private SaleViewModel parseLine(string line)
         {
             var temp = line.Split(';');
-            return new SaleViewModel("test", DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]));
+            return new SaleViewModel(DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]));
         }
 
 

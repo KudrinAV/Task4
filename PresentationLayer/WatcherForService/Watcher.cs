@@ -3,6 +3,7 @@ using PresentationLayer.Interfaces;
 using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -52,20 +53,23 @@ namespace MonitorService.Parser
         {
             IBridgeToBLL bridge = new BridgeToBLL();
             string[] tmp = Path.GetFileNameWithoutExtension(e.FullPath).Split('_');
-            Console.WriteLine("Checking File" + tmp[0] + "_" + tmp[1]);
-            if (bridge.CheckManager(tmp[0]))
+            Console.WriteLine("Checking File " + tmp[0] + "_" + tmp[1]);
+                //+ DateTime.ParseExact(tmp[1], "ddmmYYYY", CultureInfo.InvariantCulture));
+            if (bridge.CheckManager(tmp[0])==true)
             {
+                Console.WriteLine("He exists");
                 bridge.SendReport(new ReportViewModel(tmp[0], DateTime.Parse(tmp[1])));
                 SendInfoToBLL(e, bridge);
             }
-            else { bridge.SendManagerInfo(new ManagerViewModel(tmp[0])); }
+            else {
+                Console.WriteLine("Adding manager");
+                    bridge.SendManagerInfo(new ManagerViewModel(tmp[0])); }
         }
         
         private void SendInfoToBLL(FileSystemEventArgs e, IBridgeToBLL bridge)
         {
             string filePath = e.FullPath;
             Parser parser = new Parser();
-            //string SName = Path.GetFileNameWithoutExtension(filePath);
             foreach (var item in parser.ParserCSV(filePath))
             {
                 bridge.SendSaleInfo(item);

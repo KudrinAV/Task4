@@ -8,7 +8,6 @@ namespace BLL.DTO
 {
     public class SaleDTO
     {
-        public string ManagerName { get; set; }
         public DateTime Date { get; set; }
         public string Client { get; set; }
         public string Product { get; set; }
