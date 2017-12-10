@@ -10,10 +10,8 @@ namespace Model.Interfaces
     {
         IEnumerable<TEntity> Get();
         IEnumerable<TEntity> Get(Func<TEntity, Boolean> predicate);
-        TEntity FindById(int id);
         void Create(TEntity item);
         void Update(TEntity item);
         void Remove(TEntity item);
-        int GetId(TEntity item);
     }
 }
