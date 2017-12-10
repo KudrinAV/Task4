@@ -10,8 +10,8 @@ namespace PresentationLayer.Interfaces
     public interface IBridgeToBLL
     {
         void SendSaleInfo(SaleViewModel sale);
-        void AddSales(ICollection<SaleViewModel> sales);
-        void CheckManager(ManagerViewModel manager);
+        void SendSalesInfo(ICollection<SaleViewModel> sales);
+        bool CheckManager(ManagerViewModel manager);
         void Dispose();
     }
 }

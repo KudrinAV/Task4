@@ -22,24 +22,34 @@ namespace PresentationLayer.Bridge
             //AutoMapper.Mapper.Initialize(c => c.CreateMap<SaleViewModel, SaleDTO>());
         }
 
-        public void SendSaleInfo(SaleViewModel sale)
+        private SaleDTO MapSale(SaleViewModel sale)
         {
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<SaleViewModel, SaleDTO>();
             });
             IMapper mapper = config.CreateMapper();
-            _dbConnect.AddSale(mapper.Map<SaleViewModel, SaleDTO>(sale));
+            return mapper.Map<SaleViewModel, SaleDTO>(sale);
         }
 
-        public void AddSales(ICollection<SaleViewModel> sales)
+        public void SendSaleInfo(SaleViewModel sale)
         {
-            throw new NotImplementedException();
+            _dbConnect.AddSale(MapSale(sale));
         }
 
-        public void CheckManager(ManagerViewModel manager)
+        public void SendSalesInfo(ICollection<SaleViewModel> sales)
         {
-            throw new NotImplementedException();
+            ICollection<SaleDTO> salesInfo = new List<SaleDTO>();
+            foreach(var item in sales)
+            {
+                salesInfo.Add(MapSale(item));
+            }
+            _dbConnect.AddSales(salesInfo);
+        }
+
+        bool CheckManager(string managerLastName)
+        {
+            return _dbConnect.CheckManager(managerLastName);
         }
 
         public void Dispose()
