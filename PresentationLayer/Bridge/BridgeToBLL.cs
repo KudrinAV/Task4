@@ -47,7 +47,7 @@ namespace PresentationLayer.Bridge
             _dbConnect.AddSales(salesInfo);
         }
 
-        bool CheckManager(string managerLastName)
+        public bool CheckManager(string managerLastName)
         {
             return _dbConnect.CheckManager(managerLastName);
         }

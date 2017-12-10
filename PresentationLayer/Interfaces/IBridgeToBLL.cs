@@ -11,7 +11,7 @@ namespace PresentationLayer.Interfaces
     {
         void SendSaleInfo(SaleViewModel sale);
         void SendSalesInfo(ICollection<SaleViewModel> sales);
-        bool CheckManager(ManagerViewModel manager);
+        bool CheckManager(string managerLastName);
         void Dispose();
     }
 }
