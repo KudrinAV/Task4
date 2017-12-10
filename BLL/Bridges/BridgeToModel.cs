@@ -64,30 +64,16 @@ namespace BLL.Bridges
             }
         }
 
-        public bool CheckManager(string managerLastName)
+        public int? CheckManager(string managerLastName)
         {
-            if (_db.Managers.Get(x => x.LastName == managerLastName).Any()) { return true; }
-            else return false;
+            Manager manager = _db.Managers.Get(x => x.LastName == managerLastName).First();
+            if (manager!=null) { return manager.ManagerID; }
+            else return null;
         }
 
         public void Dispose()
         {
             _db.Dispose();
-        }
-
-        public ManagerDTO GetManager(string managerLastName)
-        {
-            Manager manager = _db.Managers.Get(x => x.LastName == managerLastName).ToList().First();
-            if (manager != null)
-            {
-                var config = new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<Manager, ManagerDTO>();
-                });
-                IMapper mapper = config.CreateMapper();
-                return mapper.Map<Manager, ManagerDTO>(manager);
-            }
-            else return null;
         }
     }
 }

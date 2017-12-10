@@ -55,15 +55,12 @@ namespace MonitorService.Parser
             string fileName = Path.GetFileNameWithoutExtension(e.FullPath);
             string[] tmp = fileName.Split('_');
             string pattern = "ddMMyyyy";
-            DateTime parsedDate;
-            if (bridge.CheckManager(tmp[0]))
+            int? id = bridge.CheckManager(tmp[0]);
+            DateTime parsedDate = DateTime.ParseExact(tmp[1], pattern, null);
+            if (id!=null)
             {
-                ManagerViewModel manager = bridge.GetManager(tmp[0]);
-                if (DateTime.TryParseExact(tmp[1], pattern, null, DateTimeStyles.None, out parsedDate)) ;
-                  
-                Console.WriteLine("He exists");
-                bridge.SendReport(new ReportViewModel(fileName, parsedDate, manager));
-                SendInfoToBLL(e.FullPath, bridge,  manager);
+                bridge.SendReport(new ReportViewModel(fileName, parsedDate, (int)id));
+                SendInfoToBLL(e.FullPath, bridge, (int)id);
                 
             }
             else
@@ -73,10 +70,10 @@ namespace MonitorService.Parser
             }
         }
         
-        private void SendInfoToBLL(string path, IBridgeToBLL bridge, ManagerViewModel manager)
+        private void SendInfoToBLL(string path, IBridgeToBLL bridge, int id)
         {
             Parser parser = new Parser();
-            foreach (var item in parser.ParserCSV(path, manager))
+            foreach (var item in parser.ParserCSV(path, id))
             {
                 bridge.SendSaleInfo(item);
             }

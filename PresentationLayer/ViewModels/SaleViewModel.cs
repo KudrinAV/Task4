@@ -13,15 +13,15 @@ namespace PresentationLayer.ViewModels
         public string Product { get; private set; }
         public double Price { get; private set; }
         
-        public ManagerViewModel Manager { get; private set; }
+        public int ManagerId { get; private set; }
 
-        public SaleViewModel(DateTime time, string client, string product, double price, ManagerViewModel manager)
+        public SaleViewModel(DateTime time, string client, string product, double price, int id)
         {
             Date = time;
             Client = client;
             Product = product;
             Price = price;
-            Manager = manager;
+            ManagerId = id;
         }
     }
 }
