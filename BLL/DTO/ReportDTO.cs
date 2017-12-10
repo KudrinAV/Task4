@@ -10,6 +10,7 @@ namespace BLL.DTO
     {
         string Name { get; set; }
         public DateTime Date {get;set;}
-        public int ManagerId { get; set; }
+
+        public ManagerDTO Manager;
     }
 }

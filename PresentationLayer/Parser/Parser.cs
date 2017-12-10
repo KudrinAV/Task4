@@ -10,14 +10,14 @@ namespace MonitorService.Parser
 {
     public class Parser 
     {
-        private SaleViewModel parseLine(string line , int id)
+        private SaleViewModel parseLine(string line , ManagerViewModel manager)
         {
             var temp = line.Split(';');
-            return new SaleViewModel(DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]), id);
+            return new SaleViewModel(DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]), manager);
         }
 
 
-        public IList<SaleViewModel> ParserCSV(string path, int id)
+        public IList<SaleViewModel> ParserCSV(string path, ManagerViewModel manager)
         {
             IList<SaleViewModel> resultList = new List<SaleViewModel>();
             string line;
@@ -29,7 +29,7 @@ namespace MonitorService.Parser
                 {
                     while ((line = sr.ReadLine()) != null)
                     {
-                        resultList.Add(parseLine(line, id));
+                        resultList.Add(parseLine(line, manager));
                     }
                 }
                 catch(Exception e)
