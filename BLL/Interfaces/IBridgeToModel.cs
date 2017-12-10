@@ -13,7 +13,8 @@ namespace BLL.Interfaces
         void AddSales(ICollection<SaleDTO> sales);
         void AddReport(ReportDTO report);
         void AddManager(ManagerDTO manager);
-        int CheckManager(string managerLastName);
+        bool CheckManager(string managerLastName);
+        ManagerDTO GetManager(string managerLastName);
         void Dispose();
     }
 }

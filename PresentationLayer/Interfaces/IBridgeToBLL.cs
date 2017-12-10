@@ -13,7 +13,8 @@ namespace PresentationLayer.Interfaces
         void SendSalesInfo(ICollection<SaleViewModel> sales);
         void SendReport(ReportViewModel report);
         void SendManagerInfo(ManagerViewModel manager);
-        int CheckManager(string managerLastName);
+        bool CheckManager(string managerLastName);
+        ManagerViewModel GetManager(string managerLastName);
         void Dispose();
     }
 }
