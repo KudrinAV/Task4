@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Model.DataModel;
 using Model.Repositories;
+using Model.Entities;
 
 namespace Model.DALElements
 {
@@ -14,10 +15,19 @@ namespace Model.DALElements
         private StoreAccountingContext _context;
         private IGenericRepository<Manager> _managers;
         private IGenericRepository<Sale> _sales;
+        private IGenericRepository<Report> _reports;
 
         public EFUnitOfWork()
         {
             _context = new StoreAccountingContext();
+        }
+
+        public IGenericRepository<Report> Report
+        {
+            get
+            {
+                return _reports ?? new EFGenericRepository<Report>(_context);
+            }
         }
 
         public IGenericRepository<Manager> Managers

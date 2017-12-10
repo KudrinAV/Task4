@@ -1,6 +1,7 @@
 namespace Model
 {
     using Model.DataModel;
+    using Model.Entities;
     using System;
     using System.Data.Entity;
     using System.Linq;
@@ -19,5 +20,6 @@ namespace Model
 
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Sale> Sales { get; set; }
+        public DbSet<Report> Reports { get; set }
     }
 }
