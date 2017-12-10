@@ -16,16 +16,6 @@ namespace BLL.Bridges
     {
         private IUnitOfWork _db;
 
-        //MapperConfiguration config = new MapperConfiguration(cfg =>
-        //{
-        //    cfg.CreateMap<SaleDTO, Sale>();
-        //});
-
-        //public BridgeToModel(IUnitOfWork unitOfWork)
-        //{
-        //    _db = unitOfWork;
-        //}
-
         public BridgeToModel()
         {
             _db = new EFUnitOfWork();
@@ -45,12 +35,16 @@ namespace BLL.Bridges
 
         public void AddSales(ICollection<SaleDTO> sales)
         {
-            throw new NotImplementedException();
+            foreach(var item in sales)
+            {
+                AddSale(item);
+            }
         }
 
-        public void CheckManager(ManagerDTO manager)
+        public bool CheckManager(string managerLastName)
         {
-            throw new NotImplementedException();
+            if (_db.Managers.Get(x => x.LastName == managerLastName) != null) { return true; }
+            else return false;
         }
 
         public void Dispose()
