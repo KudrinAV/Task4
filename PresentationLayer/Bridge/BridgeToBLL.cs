@@ -56,5 +56,15 @@ namespace PresentationLayer.Bridge
         {
             _dbConnect.Dispose();
         }
+
+        public void SendReport(ReportViewModel report)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ReportViewModel, ReportDTO>();
+            });
+            IMapper mapper = config.CreateMapper();
+            _dbConnect.AddReport( mapper.Map<ReportViewModel, ReportDTO>(report));
+        }
     }
 }

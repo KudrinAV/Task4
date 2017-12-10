@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace PresentationLayer.ViewModels
 {
-    public class ManagerViewModel
+    public class ReportViewModel
     {
-        public string LastName { get; set; }
+        public string Name { get; private set; }
 
-        public ManagerViewModel(string name)
+        public ReportViewModel(string name)
         {
-            LastName = name;
+            Name = name;
         }
     }
 }

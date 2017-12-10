@@ -34,14 +34,6 @@ namespace BLL.Bridges
             _db.Save();
         }
 
-        public void AddReports(ICollection<ReportDTO> reports)
-        {
-            foreach(var item in reports)
-            {
-                AddReport(item);
-            }
-        }
-
         public void AddSale(SaleDTO sale)
         {
             var config = new MapperConfiguration(cfg =>

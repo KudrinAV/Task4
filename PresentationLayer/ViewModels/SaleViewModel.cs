@@ -8,11 +8,11 @@ namespace PresentationLayer.ViewModels
 {
     public class SaleViewModel
     {
-        public string ManagerName { get; set; }
-        public DateTime Date { get; set; }
-        public string Client { get; set; }
-        public string Product { get; set; }
-        public double Price { get; set; }
+        public string ManagerName { get; private set; }
+        public DateTime Date { get; private set; }
+        public string Client { get; private set; }
+        public string Product { get; private set; }
+        public double Price { get; private set; }
 
         public SaleViewModel(string name, DateTime time, string client, string product, double price)
         {
