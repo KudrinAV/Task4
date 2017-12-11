@@ -8,23 +8,21 @@ using System.Threading.Tasks;
 
 namespace MonitorService.Parser
 {
-    public class Parser 
+    public class Parser
     {
-        private SaleViewModel parseLine(string line , int id)
+        private SaleViewModel parseLine(string line, int id)
         {
             var temp = line.Split(';');
             return new SaleViewModel(DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]), id);
         }
 
-
         public IList<SaleViewModel> ParserCSV(string path, int id)
         {
             IList<SaleViewModel> resultList = new List<SaleViewModel>();
             string line;
-            Console.WriteLine(Path.GetFileNameWithoutExtension(path))   ;
+            Console.WriteLine(Path.GetFileNameWithoutExtension(path));
             using (StreamReader sr = new StreamReader(path))
             {
-                
                 try
                 {
                     while ((line = sr.ReadLine()) != null)
@@ -32,7 +30,7 @@ namespace MonitorService.Parser
                         resultList.Add(parseLine(line, id));
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }

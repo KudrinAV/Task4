@@ -14,7 +14,7 @@ namespace PresentationLayer.Interfaces
         void SendReport(ReportViewModel report);
         void SendManagerInfo(ManagerViewModel manager);
         int? GetManagerId(string managerLastName);
-        bool CheckManager(string managerLastName); 
+        bool CheckManager(string managerLastName);
         void Dispose();
     }
 }

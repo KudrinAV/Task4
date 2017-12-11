@@ -20,7 +20,6 @@ namespace BLL.Bridges
         public BridgeToModel()
         {
             _db = new EFUnitOfWork();
-
         }
 
         public void AddManager(ManagerDTO manager)
@@ -46,7 +45,7 @@ namespace BLL.Bridges
             _db.Reports.Create(mapper.Map<ReportDTO, Report>(report));
             _db.Save();
         }
-        
+
 
         public void AddSale(SaleDTO sale)
         {
@@ -63,7 +62,7 @@ namespace BLL.Bridges
 
         public void AddSales(ICollection<SaleDTO> sales)
         {
-            foreach(var item in sales)
+            foreach (var item in sales)
             {
                 AddSale(item);
             }
@@ -72,7 +71,7 @@ namespace BLL.Bridges
         public int? GetManagerId(string managerLastName)
         {
             Manager manager = _db.Managers.Get(x => x.LastName == managerLastName).First();
-            if (manager!=null) { return manager.ManagerID; }
+            if (manager != null) { return manager.ManagerID; }
             else return null;
         }
 

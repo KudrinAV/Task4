@@ -14,9 +14,7 @@ namespace MonitorService
 {
     public partial class Service1 : ServiceBase
     {
-
         private Watcher watcher;
-
 
         public Service1()
         {

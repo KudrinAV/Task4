@@ -22,14 +22,14 @@ namespace MonitorService.Parser
 
         public Watcher()
         {
-            watcher = new FileSystemWatcher("D:\\Task4" , "*csv");
+            watcher = new FileSystemWatcher("D:\\Task4", "*csv");
             watcher.Created += Watcher_Created;
             taskFactory = new TaskFactory();
         }
 
         public void Start()
         {
-                
+
             watcher.EnableRaisingEvents = true;
             while (enabled)
             {
@@ -46,7 +46,7 @@ namespace MonitorService.Parser
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
             Console.WriteLine("What do we have there? New TASK!");
-            taskFactory.StartNew(()=>CheckFile(e));
+            taskFactory.StartNew(() => CheckFile(e));
         }
 
         private void CheckFile(FileSystemEventArgs e)
@@ -67,7 +67,7 @@ namespace MonitorService.Parser
                 bridge.SendManagerInfo(new ManagerViewModel(tmp[0]));
             }
         }
-        
+
         private void SendInfoToBLL(string path, IBridgeToBLL bridge, int id)
         {
             Parser parser = new Parser();
@@ -76,20 +76,6 @@ namespace MonitorService.Parser
                 bridge.SendSaleInfo(item);
             }
             bridge.Dispose();
-        }
-
-        private void RecordEntry(string fileEvent, string filePath, FileSystemEventArgs e)
-        {
-            //lock (obj)
-            //{
-            //    //taskFactory.StartNew(() => SendInfoToBLL(e));
-            //    using (StreamWriter writer = new StreamWriter("D:\\templog.txt", true))
-            //    {
-            //        writer.WriteLine(String.Format("{0} файл {1} был {2}",
-            //            DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
-            //        writer.Flush();
-            //    }
-            //}
         }
     }
 }

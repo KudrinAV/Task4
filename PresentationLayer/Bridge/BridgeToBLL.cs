@@ -39,7 +39,7 @@ namespace PresentationLayer.Bridge
         public void SendSalesInfo(ICollection<SaleViewModel> sales)
         {
             ICollection<SaleDTO> salesInfo = new List<SaleDTO>();
-            foreach(var item in sales)
+            foreach (var item in sales)
             {
                 salesInfo.Add(MapSale(item));
             }
@@ -50,7 +50,6 @@ namespace PresentationLayer.Bridge
         {
             return _dbConnect.GetManagerId(managerLastName);
         }
-
 
         public void Dispose()
         {
@@ -64,7 +63,7 @@ namespace PresentationLayer.Bridge
                 cfg.CreateMap<ReportViewModel, ReportDTO>();
             });
             IMapper mapper = config.CreateMapper();
-            _dbConnect.AddReport( mapper.Map<ReportViewModel, ReportDTO>(report));
+            _dbConnect.AddReport(mapper.Map<ReportViewModel, ReportDTO>(report));
         }
 
         public void SendManagerInfo(ManagerViewModel manager)
@@ -76,7 +75,6 @@ namespace PresentationLayer.Bridge
             IMapper mapper = config.CreateMapper();
             _dbConnect.AddManager(mapper.Map<ManagerViewModel, ManagerDTO>(manager));
         }
-        
 
         public bool CheckManager(string managerLastName)
         {
