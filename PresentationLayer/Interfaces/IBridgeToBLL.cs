@@ -10,12 +10,6 @@ namespace PresentationLayer.Interfaces
 {
     public interface IBridgeToBLL
     {
-        void SendSaleInfo(SaleViewModel sale);
-        void SendSalesInfo(ICollection<SaleViewModel> sales);
-        void SendReport(ReportViewModel report);
-        void SendManagerInfo(ManagerViewModel manager);
-        int? GetManagerId(string managerLastName);
-        bool CheckManager(string managerLastName);
         void CheckFile(FileSystemEventArgs e);
         void Dispose();
     }
