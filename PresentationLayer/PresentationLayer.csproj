@@ -47,7 +47,6 @@
     <Compile Include="Bridge\BridgeToBLL.cs" />
     <Compile Include="ConsoleApp\ConsoleApp.cs" />
     <Compile Include="Interfaces\IBridgeToBLL.cs" />
-    <Compile Include="Parser\Parser.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="WatcherForService\Watcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

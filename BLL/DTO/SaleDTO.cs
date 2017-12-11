@@ -14,5 +14,14 @@ namespace BLL.DTO
         public double Price { get; set; }
 
         public int ManagerId { get; set; }
+
+        public SaleDTO(DateTime time, string client, string product, double price, int id)
+        {
+            Date = time;
+            Client = client;
+            Product = product;
+            Price = price;
+            ManagerId = id;
+        }
     }
 }

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MonitorService.Parser
+namespace BLL.Parser
 {
     public class Watcher
     {
@@ -45,37 +45,9 @@ namespace MonitorService.Parser
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            Console.WriteLine("What do we have there? New TASK!");
-            taskFactory.StartNew(() => CheckFile(e));
-        }
-
-        private void CheckFile(FileSystemEventArgs e)
-        {
             IBridgeToBLL bridge = new BridgeToBLL();
-            string fileName = Path.GetFileNameWithoutExtension(e.FullPath);
-            string[] tmp = fileName.Split('_');
-            string pattern = "ddMMyyyy";
-            if (bridge.CheckManager(tmp[0]))
-            {
-                DateTime parsedDate = DateTime.ParseExact(tmp[1], pattern, null);
-                int? id = bridge.GetManagerId(tmp[0]);
-                bridge.SendReport(new ReportViewModel(fileName, parsedDate, (int)id));
-                SendInfoToBLL(e.FullPath, bridge, (int)id);
-            }
-            else
-            {
-                bridge.SendManagerInfo(new ManagerViewModel(tmp[0]));
-            }
-        }
-
-        private void SendInfoToBLL(string path, IBridgeToBLL bridge, int id)
-        {
-            Parser parser = new Parser();
-            foreach (var item in parser.ParserCSV(path, id))
-            {
-                bridge.SendSaleInfo(item);
-            }
-            bridge.Dispose();
+            taskFactory.StartNew(() => bridge.CheckFile(e));
+            //bridge.Dispose();
         }
     }
 }

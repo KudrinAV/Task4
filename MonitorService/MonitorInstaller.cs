@@ -7,7 +7,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Threading.Tasks;
 
-namespace MonitorService
+namespace BLL
 {
     [RunInstaller(true)]
     public partial class MonitorInstaller : Installer

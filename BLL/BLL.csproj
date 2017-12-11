@@ -50,6 +50,8 @@
     <Compile Include="DTO\SaleDTO.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interfaces\IBridgeToModel.cs" />
+    <Compile Include="Interfaces\IWatcherHandler.cs" />
+    <Compile Include="ParserObj\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

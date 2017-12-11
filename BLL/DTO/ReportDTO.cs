@@ -12,5 +12,12 @@ namespace BLL.DTO
         public DateTime Date { get; set; }
 
         public int ManagerId { get; set; }
+
+        public ReportDTO(string name, DateTime date, int id)
+        {
+            Name = name;
+            Date = date;
+            ManagerId = id;
+        }
     }
 }

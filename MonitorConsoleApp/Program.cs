@@ -1,4 +1,4 @@
-﻿using MonitorService.Parser;
+﻿using BLL.Parser;
 using PresentationLayer.Bridge;
 using PresentationLayer.Interfaces;
 using System;

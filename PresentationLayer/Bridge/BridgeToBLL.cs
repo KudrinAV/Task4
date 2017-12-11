@@ -9,12 +9,19 @@ using BLL.Interfaces;
 using BLL.Bridges;
 using BLL.DTO;
 using AutoMapper;
+using System.IO;
 
 namespace PresentationLayer.Bridge
 {
     public class BridgeToBLL : IBridgeToBLL
     {
         IBridgeToModel _dbConnect;
+
+        public void CheckFile(FileSystemEventArgs e)
+        {
+            _dbConnect.CheckFile(e);
+        }
+
 
         public BridgeToBLL()
         {

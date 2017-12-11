@@ -1,4 +1,4 @@
-﻿using MonitorService.Parser;
+﻿using BLL.Parser;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MonitorService
+namespace BLL
 {
     public partial class Service1 : ServiceBase
     {

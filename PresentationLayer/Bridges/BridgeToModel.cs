@@ -11,8 +11,6 @@ using Model.DALElements;
 using AutoMapper;
 using Model.Entities;
 using BLL.Infrastructure;
-using System.IO;
-using BLL.ParserObj;
 
 namespace BLL.Bridges
 {
@@ -25,38 +23,9 @@ namespace BLL.Bridges
             _db = new EFUnitOfWork();
         }
 
-        public void CheckFile(FileSystemEventArgs e)
-        {
-            string fileName = Path.GetFileNameWithoutExtension(e.FullPath);
-            Console.WriteLine(fileName);
-            string[] tmp = fileName.Split('_');
-            string pattern = "ddMMyyyy";
-            if (CheckManager(tmp[0]))
-            {
-                Console.WriteLine("hello");
-                DateTime parsedDate = DateTime.ParseExact(tmp[1], pattern, null);
-                int? id = GetManagerId(tmp[0]);
-                AddReport(new ReportDTO(fileName, parsedDate, (int)id));
-                ParseFile(e.FullPath, (int)id);
-            }
-            else
-            {
-                AddManager(new ManagerDTO(tmp[0]));
-            }
-        }
-
-        private void ParseFile(string path, int id)
-        {
-            Parser parser = new Parser();
-            foreach (var item in parser.ParserCSV(path, id))
-            {
-                AddSale(item);
-            }
-            Console.WriteLine("added to db");
-        }
-
         public void AddManager(ManagerDTO manager)
         {
+            Console.WriteLine(manager.LastName);
             if (manager.LastName.Contains("_"))
             {
                 var config = new MapperConfiguration(cfg =>
@@ -66,7 +35,8 @@ namespace BLL.Bridges
                 IMapper mapper = config.CreateMapper();
                 _db.Managers.Create(mapper.Map<ManagerDTO, Manager>(manager));
                 _db.Save();
-            } throw new ValidationException("Bad filing name", "");
+            }
+            else throw new ValidationException("Bad file naming", "");
         }
 
         public void AddReport(ReportDTO report)
@@ -118,7 +88,6 @@ namespace BLL.Bridges
 
         public bool CheckManager(string managerLastName)
         {
-            Console.WriteLine("Cheking");
             if (_db.Managers.Get(x => x.LastName == managerLastName).Any()) return true;
             else return false;
         }

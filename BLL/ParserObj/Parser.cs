@@ -1,4 +1,4 @@
-﻿using PresentationLayer.ViewModels;
+﻿using BLL.DTO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,19 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonitorService.Parser
+namespace BLL.ParserObj
 {
     public class Parser
     {
-        private SaleViewModel ParseLine(string line, int id)
+        private SaleDTO ParseLine(string line, int id)
         {
             var temp = line.Split(';');
-            return new SaleViewModel(DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]), id);
+            return new SaleDTO(DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]), id);
         }
 
-        public IList<SaleViewModel> ParserCSV(string path, int id)
+        public IList<SaleDTO> ParserCSV(string path, int id)
         {
-            IList<SaleViewModel> resultList = new List<SaleViewModel>();
+            Console.WriteLine("Parsing...");
+            IList<SaleDTO> resultList = new List<SaleDTO>();
             string line;
             Console.WriteLine(Path.GetFileNameWithoutExtension(path));
             using (StreamReader sr = new StreamReader(path))
@@ -35,6 +36,7 @@ namespace MonitorService.Parser
                     Console.WriteLine(e.Message);
                 }
             }
+            Console.Write("Sending data");
             return resultList;
         }
     }

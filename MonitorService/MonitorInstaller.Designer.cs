@@ -1,4 +1,4 @@
-﻿namespace MonitorService
+﻿namespace BLL
 {
     partial class MonitorInstaller
     {
