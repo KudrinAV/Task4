@@ -3,6 +3,7 @@ using PresentationLayer.Interfaces;
 using PresentationLayer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -16,20 +17,17 @@ namespace BLL.Parser
     {
         FileSystemWatcher watcher;
         TaskFactory taskFactory;
-
-        object obj = new object();
         bool enabled = true;
 
-        public Watcher()
+        public Watcher( )
         {
-            watcher = new FileSystemWatcher("D:\\Task4", "*csv");
+            watcher = new FileSystemWatcher(ConfigurationManager.AppSettings.Get("D"), "*csv");
             watcher.Created += Watcher_Created;
             taskFactory = new TaskFactory();
         }
 
         public void Start()
         {
-
             watcher.EnableRaisingEvents = true;
             while (enabled)
             {

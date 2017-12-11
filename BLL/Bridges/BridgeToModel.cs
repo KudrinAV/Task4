@@ -33,14 +33,14 @@ namespace BLL.Bridges
             if (CheckManager(tmp[0]))
             {
                 string pattern = "ddMMyyyy";
-                DateTime parsedDate;
-                if (DateTime.TryParseExact(tmp[1], pattern, null, System.Globalization.DateTimeStyles.None, out parsedDate))
+                if (DateTime.TryParseExact(tmp[1], pattern, null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
                 {
                     Console.WriteLine("proshel " + tmp[0]);
                     int? id = GetManagerId(tmp[0]);
                     AddReport(new ReportDTO(fileName, parsedDate, (int)id));
                     ParseFile(e.FullPath, (int)id);
-                } else throw new ValidationException("Bad data time", "");
+                }
+                else throw new ValidationException("Bad data time", "");
             }
             else
             {
@@ -53,10 +53,7 @@ namespace BLL.Bridges
         private void ParseFile(string path, int id)
         {
             Parser parser = new Parser();
-            foreach (var item in parser.ParserCSV(path, id))
-            {
-                if(item !=null) AddSale(item);
-            }
+            AddSales(parser.ParserCSV(path, id));
         }
 
         public void AddManager(ManagerDTO manager)
