@@ -37,7 +37,6 @@ namespace MonitorService.Parser
                     Console.WriteLine(e.Message);
                 }
             }
-            Console.WriteLine("sending result");
             return resultList;
         }
     }
