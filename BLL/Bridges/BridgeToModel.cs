@@ -69,7 +69,7 @@ namespace BLL.Bridges
             }
         }
 
-        public int? CheckManager(string managerLastName)
+        public int? GetManagerId(string managerLastName)
         {
             Manager manager = _db.Managers.Get(x => x.LastName == managerLastName).First();
             if (manager!=null) { return manager.ManagerID; }
@@ -79,6 +79,12 @@ namespace BLL.Bridges
         public void Dispose()
         {
             _db.Dispose();
+        }
+
+        public bool CheckManager(string managerLastName)
+        {
+            if (_db.Managers.Get(x => x.LastName == managerLastName).Any()) return true;
+            else return false;
         }
     }
 }

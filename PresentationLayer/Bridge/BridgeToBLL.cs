@@ -46,10 +46,11 @@ namespace PresentationLayer.Bridge
             _dbConnect.AddSales(salesInfo);
         }
 
-        public int? CheckManager(string managerLastName)
+        public int? GetManagerId(string managerLastName)
         {
-            return _dbConnect.CheckManager(managerLastName);
+            return _dbConnect.GetManagerId(managerLastName);
         }
+
 
         public void Dispose()
         {
@@ -74,6 +75,12 @@ namespace PresentationLayer.Bridge
             });
             IMapper mapper = config.CreateMapper();
             _dbConnect.AddManager(mapper.Map<ManagerViewModel, ManagerDTO>(manager));
+        }
+        
+
+        public bool CheckManager(string managerLastName)
+        {
+            return _dbConnect.CheckManager(managerLastName);
         }
     }
 }

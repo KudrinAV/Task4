@@ -55,17 +55,16 @@ namespace MonitorService.Parser
             string fileName = Path.GetFileNameWithoutExtension(e.FullPath);
             string[] tmp = fileName.Split('_');
             string pattern = "ddMMyyyy";
-            int? id = bridge.CheckManager(tmp[0]);
-            DateTime parsedDate = DateTime.ParseExact(tmp[1], pattern, null);
-            if (id!=null)
+            if (bridge.CheckManager(tmp[0]))
             {
+                DateTime parsedDate = DateTime.ParseExact(tmp[1], pattern, null);
+                Console.WriteLine("hello");
+                int? id = bridge.GetManagerId(tmp[0]);
                 bridge.SendReport(new ReportViewModel(fileName, parsedDate, (int)id));
                 SendInfoToBLL(e.FullPath, bridge, (int)id);
-                
             }
             else
             {
-            Console.WriteLine("Adding manager");
                 bridge.SendManagerInfo(new ManagerViewModel(tmp[0]));
             }
         }
