@@ -1,4 +1,5 @@
-﻿using BLL.DTO;
+﻿using AutoMapper;
+using BLL.DTO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +11,7 @@ namespace BLL.Interfaces
 {
     public interface IBridgeToModel
     {
-        void AddSale(SaleDTO sale);
+        void AddSale(SaleDTO sale, IMapper mapper);
         void AddSales(ICollection<SaleDTO> sales);
         void AddReport(ReportDTO report);
         void AddManager(ManagerDTO manager);
