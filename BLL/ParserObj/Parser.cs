@@ -18,10 +18,8 @@ namespace BLL.ParserObj
 
         public IList<SaleDTO> ParserCSV(string path, int id)
         {
-            Console.WriteLine("Parsing...");
             IList<SaleDTO> resultList = new List<SaleDTO>();
             string line;
-            Console.WriteLine(Path.GetFileNameWithoutExtension(path));
             using (StreamReader sr = new StreamReader(path))
             {
                 try
@@ -36,7 +34,6 @@ namespace BLL.ParserObj
                     Console.WriteLine(e.Message);
                 }
             }
-            Console.Write("Sending data");
             return resultList;
         }
     }

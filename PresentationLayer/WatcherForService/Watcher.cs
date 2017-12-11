@@ -46,8 +46,8 @@ namespace BLL.Parser
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
             IBridgeToBLL bridge = new BridgeToBLL();
-            taskFactory.StartNew(() => bridge.CheckFile(e));
-            //bridge.Dispose();
+            taskFactory.StartNew(() => { bridge.CheckFile(e);
+            bridge.Dispose(); });
         }
     }
 }

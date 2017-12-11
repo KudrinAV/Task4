@@ -28,12 +28,10 @@ namespace BLL.Bridges
         public void CheckFile(FileSystemEventArgs e)
         {
             string fileName = Path.GetFileNameWithoutExtension(e.FullPath);
-            Console.WriteLine(fileName);
             string[] tmp = fileName.Split('_');
             string pattern = "ddMMyyyy";
             if (CheckManager(tmp[0]))
             {
-                Console.WriteLine("hello");
                 DateTime parsedDate = DateTime.ParseExact(tmp[1], pattern, null);
                 int? id = GetManagerId(tmp[0]);
                 AddReport(new ReportDTO(fileName, parsedDate, (int)id));
@@ -52,7 +50,6 @@ namespace BLL.Bridges
             {
                 AddSale(item);
             }
-            Console.WriteLine("added to db");
         }
 
         public void AddManager(ManagerDTO manager)
@@ -118,7 +115,6 @@ namespace BLL.Bridges
 
         public bool CheckManager(string managerLastName)
         {
-            Console.WriteLine("Cheking");
             if (_db.Managers.Get(x => x.LastName == managerLastName).Any()) return true;
             else return false;
         }
