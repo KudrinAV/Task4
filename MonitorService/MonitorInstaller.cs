@@ -19,9 +19,10 @@ namespace MonitorService
         {
             InitializeComponent();
             serviceInstaller = new ServiceInstaller();
-            processInstaller = new ServiceProcessInstaller();
-
-            processInstaller.Account = ServiceAccount.LocalSystem;
+            processInstaller = new ServiceProcessInstaller
+            {
+                Account = ServiceAccount.LocalSystem
+            };
             serviceInstaller.StartType = ServiceStartMode.Manual;
             serviceInstaller.ServiceName = "MonitorService";
             Installers.Add(processInstaller);

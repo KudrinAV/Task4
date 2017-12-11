@@ -10,7 +10,7 @@ namespace MonitorService.Parser
 {
     public class Parser
     {
-        private SaleViewModel parseLine(string line, int id)
+        private SaleViewModel ParseLine(string line, int id)
         {
             var temp = line.Split(';');
             return new SaleViewModel(DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]), id);
@@ -27,7 +27,7 @@ namespace MonitorService.Parser
                 {
                     while ((line = sr.ReadLine()) != null)
                     {
-                        resultList.Add(parseLine(line, id));
+                        resultList.Add(ParseLine(line, id));
                     }
                 }
                 catch (Exception e)
