@@ -38,12 +38,15 @@ namespace BLL.Bridges
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ReportDTO, Report>();
+                cfg.CreateMap<ReportDTO, Report>()
+                .ForMember(dest => dest.Manager,
+                opts => opts.MapFrom(src => _db.Managers.FindById(src.ManagerId)));
             });
             IMapper mapper = config.CreateMapper();
             _db.Reports.Create(mapper.Map<ReportDTO, Report>(report));
             _db.Save();
         }
+        
 
         public void AddSale(SaleDTO sale)
         {

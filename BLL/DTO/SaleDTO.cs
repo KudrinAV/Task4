@@ -13,6 +13,6 @@ namespace BLL.DTO
         public string Product { get; set; }
         public double Price { get; set; }
 
-        public ManagerDTO Manager;
+        public int ManagerId { get; set; }
     }
 }
