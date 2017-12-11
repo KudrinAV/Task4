@@ -19,7 +19,7 @@ namespace BLL.Parser
         TaskFactory taskFactory;
         bool enabled = true;
 
-        public Watcher( )
+        public Watcher()
         {
             watcher = new FileSystemWatcher(ConfigurationManager.AppSettings.Get("D"), "*csv");
             watcher.Created += Watcher_Created;
@@ -44,8 +44,10 @@ namespace BLL.Parser
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
             IBridgeToBLL bridge = new BridgeToBLL();
-            taskFactory.StartNew(() => { bridge.CheckFile(e);
-            bridge.Dispose();
+            taskFactory.StartNew(() =>
+            {
+                bridge.CheckFile(e);
+                bridge.Dispose();
             });
         }
     }

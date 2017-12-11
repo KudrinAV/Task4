@@ -17,7 +17,7 @@ namespace BLL.ParserObj
                 var temp = line.Split(';');
                 return new SaleDTO(DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]), id);
             }
-            catch(FormatException e)
+            catch (FormatException e)
             {
                 return null;
             }

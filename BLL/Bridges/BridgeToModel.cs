@@ -28,14 +28,12 @@ namespace BLL.Bridges
         public void CheckFile(FileSystemEventArgs e)
         {
             string fileName = Path.GetFileNameWithoutExtension(e.FullPath);
-            Console.WriteLine(fileName);
             string[] tmp = fileName.Split('_');
             if (CheckManager(tmp[0]))
             {
                 string pattern = "ddMMyyyy";
                 if (DateTime.TryParseExact(tmp[1], pattern, null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
                 {
-                    Console.WriteLine("proshel " + tmp[0]);
                     int? id = GetManagerId(tmp[0]);
                     AddReport(new ReportDTO(fileName, parsedDate, (int)id));
                     ParseFile(e.FullPath, (int)id);
@@ -44,8 +42,8 @@ namespace BLL.Bridges
             }
             else
             {
-                if(tmp[1]!= null) 
-                AddManager(new ManagerDTO(tmp[0]));
+                if (tmp[1] != null)
+                    AddManager(new ManagerDTO(tmp[0]));
                 else throw new ValidationException("Bad filing name", "");
             }
         }
