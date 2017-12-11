@@ -81,15 +81,18 @@ namespace BLL.Bridges
 
         public void AddSale(SaleDTO sale)
         {
-            var config = new MapperConfiguration(cfg =>
+            if (sale != null)
             {
-                cfg.CreateMap<SaleDTO, Sale>()
-                    .ForMember(dest => dest.Manager,
-                             opts => opts.MapFrom(src => _db.Managers.FindById(src.ManagerId)));
-            });
-            IMapper mapper = config.CreateMapper();
-            _db.Sales.Create(mapper.Map<SaleDTO, Sale>(sale));
-            _db.Save();
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<SaleDTO, Sale>()
+                        .ForMember(dest => dest.Manager,
+                                 opts => opts.MapFrom(src => _db.Managers.FindById(src.ManagerId)));
+                });
+                IMapper mapper = config.CreateMapper();
+                _db.Sales.Create(mapper.Map<SaleDTO, Sale>(sale));
+                _db.Save();
+            }
         }
 
         public void AddSales(ICollection<SaleDTO> sales)
