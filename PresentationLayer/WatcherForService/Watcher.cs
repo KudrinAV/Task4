@@ -47,7 +47,8 @@ namespace BLL.Parser
         {
             IBridgeToBLL bridge = new BridgeToBLL();
             taskFactory.StartNew(() => { bridge.CheckFile(e);
-            bridge.Dispose(); });
+            bridge.Dispose();
+            });
         }
     }
 }

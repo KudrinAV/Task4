@@ -28,18 +28,25 @@ namespace BLL.Bridges
         public void CheckFile(FileSystemEventArgs e)
         {
             string fileName = Path.GetFileNameWithoutExtension(e.FullPath);
+            Console.WriteLine(fileName);
             string[] tmp = fileName.Split('_');
-            string pattern = "ddMMyyyy";
             if (CheckManager(tmp[0]))
             {
-                DateTime parsedDate = DateTime.ParseExact(tmp[1], pattern, null);
-                int? id = GetManagerId(tmp[0]);
-                AddReport(new ReportDTO(fileName, parsedDate, (int)id));
-                ParseFile(e.FullPath, (int)id);
+                string pattern = "ddMMyyyy";
+                DateTime parsedDate;
+                if (DateTime.TryParseExact(tmp[1], pattern, null, System.Globalization.DateTimeStyles.None, out parsedDate))
+                {
+                    Console.WriteLine("proshel " + tmp[0]);
+                    int? id = GetManagerId(tmp[0]);
+                    AddReport(new ReportDTO(fileName, parsedDate, (int)id));
+                    ParseFile(e.FullPath, (int)id);
+                } else throw new ValidationException("Bad data time", "");
             }
             else
             {
+                if(tmp[1]!= null) 
                 AddManager(new ManagerDTO(tmp[0]));
+                else throw new ValidationException("Bad filing name", "");
             }
         }
 
@@ -48,22 +55,19 @@ namespace BLL.Bridges
             Parser parser = new Parser();
             foreach (var item in parser.ParserCSV(path, id))
             {
-                AddSale(item);
+                if(item !=null) AddSale(item);
             }
         }
 
         public void AddManager(ManagerDTO manager)
         {
-            if (manager.LastName.Contains("_"))
+            var config = new MapperConfiguration(cfg =>
             {
-                var config = new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<ManagerDTO, Manager>();
-                });
-                IMapper mapper = config.CreateMapper();
-                _db.Managers.Create(mapper.Map<ManagerDTO, Manager>(manager));
-                _db.Save();
-            } throw new ValidationException("Bad filing name", "");
+                cfg.CreateMap<ManagerDTO, Manager>();
+            });
+            IMapper mapper = config.CreateMapper();
+            _db.Managers.Create(mapper.Map<ManagerDTO, Manager>(manager));
+            _db.Save();
         }
 
         public void AddReport(ReportDTO report)

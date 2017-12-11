@@ -17,6 +17,11 @@ namespace PresentationLayer.Bridge
     {
         IBridgeToModel _dbConnect;
 
+        public BridgeToBLL()
+        {
+            _dbConnect = new BridgeToModel();
+        }
+
         public void CheckFile(FileSystemEventArgs e)
         {
             _dbConnect.CheckFile(e);

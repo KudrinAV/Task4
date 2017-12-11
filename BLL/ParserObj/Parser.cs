@@ -12,8 +12,15 @@ namespace BLL.ParserObj
     {
         private SaleDTO ParseLine(string line, int id)
         {
-            var temp = line.Split(';');
-            return new SaleDTO(DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]), id);
+            try
+            {
+                var temp = line.Split(';');
+                return new SaleDTO(DateTime.Parse(temp[0]), temp[1], temp[2], Double.Parse(temp[3]), id);
+            }
+            catch(FormatException e)
+            {
+                return null;
+            }
         }
 
         public IList<SaleDTO> ParserCSV(string path, int id)
